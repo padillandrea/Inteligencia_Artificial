@@ -43,29 +43,29 @@ coordenadas(s,5,-2).
 coordenadas(t,5,-1).
 
 % Conexiones entre nodos.
-conexión(a,b). conexión(b,a).
-conexión(a,k). conexión(k,a).
-conexión(b,c). conexión(c,b).
-conexión(c,d). conexión(d,c).
-conexión(c,k). conexión(k,c).
-conexión(d,e). conexión(e,d).
-conexión(e,f). conexión(f,e).
-conexión(f,g). conexión(g,f).
-conexión(g,h). conexión(h,g).
-conexión(h,i). conexión(i,h).
-conexión(h,j). conexión(j,h).
-conexión(i,j). conexión(j,i).
-conexión(i,k). conexión(k,i).
-conexión(j,m). conexión(m,j).
-conexión(k,l). conexión(l,k).
-conexión(l,m). conexión(m,l).
-conexión(m,n). conexión(n,m).
-conexión(m,o). conexión(o,m).
-conexión(o,p). conexión(p,o).
-conexión(o,r). conexión(r,o).
-conexión(p,q). conexión(q,p).
-conexión(r,s). conexión(s,r).
-conexión(s,t). conexión(t,s).
+conexiÃ³n(a,b). conexiÃ³n(b,a).
+conexiÃ³n(a,k). conexiÃ³n(k,a).
+conexiÃ³n(b,c). conexiÃ³n(c,b).
+conexiÃ³n(c,d). conexiÃ³n(d,c).
+conexiÃ³n(c,k). conexiÃ³n(k,c).
+conexiÃ³n(d,e). conexiÃ³n(e,d).
+conexiÃ³n(e,f). conexiÃ³n(f,e).
+conexiÃ³n(f,g). conexiÃ³n(g,f).
+conexiÃ³n(g,h). conexiÃ³n(h,g).
+conexiÃ³n(h,i). conexiÃ³n(i,h).
+conexiÃ³n(h,j). conexiÃ³n(j,h).
+conexiÃ³n(i,j). conexiÃ³n(j,i).
+conexiÃ³n(i,k). conexiÃ³n(k,i).
+conexiÃ³n(j,m). conexiÃ³n(m,j).
+conexiÃ³n(k,l). conexiÃ³n(l,k).
+conexiÃ³n(l,m). conexiÃ³n(m,l).
+conexiÃ³n(m,n). conexiÃ³n(n,m).
+conexiÃ³n(m,o). conexiÃ³n(o,m).
+conexiÃ³n(o,p). conexiÃ³n(p,o).
+conexiÃ³n(o,r). conexiÃ³n(r,o).
+conexiÃ³n(p,q). conexiÃ³n(q,p).
+conexiÃ³n(r,s). conexiÃ³n(s,r).
+conexiÃ³n(s,t). conexiÃ³n(t,s).
 
 % Costos de las conexiones entre los nodos.
 costo(a,b,71).  costo(b,a,71).
@@ -94,84 +94,84 @@ costo(s,t,37).  costo(t,s,37).
 
 % -----------------------------------------------------------------------%
 
-% Búsqueda en profundidad.
+% BÃºsqueda en profundidad.
 % Recibe el nodo de inicio, el nodo al que se quiere llegar y
 % regresa el camino obtenido.
-% Manda llamar al método profundidadR.
-% Al encontrar la solución con amplitudR, regresa el dicho camino al
-% revés, para así comenzar con el nodo inicial y terminar con el nodo
+% Manda llamar al mÃ©todo profundidadR.
+% Al encontrar la soluciÃ³n con amplitudR, regresa el dicho camino al
+% revÃ©s, para asÃ­ comenzar con el nodo inicial y terminar con el nodo
 % meta.
-profundidad(Inicio,Fin,Solución):-
+profundidad(Inicio,Fin,SoluciÃ³n):-
     profundidadR([Inicio],Fin,Res),
-    reverse(Res,Solución),!.
+    reverse(Res,SoluciÃ³n),!.
 
-% Método que encuentra la solución utilizando la búsqueda en
+% MÃ©todo que encuentra la soluciÃ³n utilizando la bÃºsqueda en
 % profundidad.
 % Visita el primer sucesor encontrado, verifica si no pertenece ya
 % al camino, y en casi de que no, lo agrega al recorrido.
-% En caso de que sí, se regresa y busca el siguiente sucesor.
+% En caso de que sÃ­, se regresa y busca el siguiente sucesor.
 profundidadR([],_,[]):-!.
 profundidadR([Fin|Camino],Fin,[Fin|Camino]):-!.
-profundidadR([Actual|Camino],Fin,Solución):-
-    (conexión(Actual,Sig),\+member(Sig,Camino)),
+profundidadR([Actual|Camino],Fin,SoluciÃ³n):-
+    (conexiÃ³n(Actual,Sig),\+member(Sig,Camino)),
     append([Sig],[Actual|Camino],Recorrido),
-    profundidadR(Recorrido,Fin,Solución).
+    profundidadR(Recorrido,Fin,SoluciÃ³n).
 
 % -----------------------------------------------------------------------%
 
-% Búsqueda en amplitud.
+% BÃºsqueda en amplitud.
 % Recibe el nodo de inicio, el nodo al que se quiere llegar y
 % regresa el camino obtenido.
-% Manda llamar al método amplitudR.
-% Al encontrar la solución con amplitudR, regresa el dicho camino al
-% revés, para así comenzar con el nodo inicial y terminar con el nodo
+% Manda llamar al mÃ©todo amplitudR.
+% Al encontrar la soluciÃ³n con amplitudR, regresa el dicho camino al
+% revÃ©s, para asÃ­ comenzar con el nodo inicial y terminar con el nodo
 % meta.
-amplitud(Inicio,Fin,Solución):-
+amplitud(Inicio,Fin,SoluciÃ³n):-
     amplitudR([Inicio],Fin,[],Res),
-    reverse(Res,Solución),!.
+    reverse(Res,SoluciÃ³n),!.
 
-% Método que encuentra la solución utilizando la búsqueda en amplitud.
-% Utiliza el método predefinido findall/3.
+% MÃ©todo que encuentra la soluciÃ³n utilizando la bÃºsqueda en amplitud.
+% Utiliza el mÃ©todo predefinido findall/3.
 % findall/3 se compone de tres argumentos:
-% (1) Cómo va a agregar los elementos a la lista.
-% (2) Qué condiciones se tienen que cumplir para agregarlos
+% (1) CÃ³mo va a agregar los elementos a la lista.
+% (2) QuÃ© condiciones se tienen que cumplir para agregarlos
 % (3) La lista resultante.
 % Es decir, agrega al recorrido los sucesores que no hayan sido
 % visitados ya.
 amplitudR([],_,[],[]):-!.
 amplitudR([Fin|_],Fin,Camino,[Fin|Camino]):-!.
-amplitudR([Actual|Otros],Fin,Solución,Res):-
-    findall(Sig,(conexión(Actual,Sig),\+member(Sig,Solución),\+member(Sig,Otros)),Nuevos),
+amplitudR([Actual|Otros],Fin,SoluciÃ³n,Res):-
+    findall(Sig,(conexiÃ³n(Actual,Sig),\+member(Sig,SoluciÃ³n),\+member(Sig,Otros)),Nuevos),
     append(Otros,Nuevos,Camino),
-    amplitudR(Camino,Fin,[Actual|Solución],Res).
+    amplitudR(Camino,Fin,[Actual|SoluciÃ³n],Res).
 
 % -----------------------------------------------------------------------%
 
 % Hill climbing.
 % Recibe el nodo de inicio, el nodo al que se quiere llegar y
 % regresa el camino obtenido.
-% Manda llamar al método hillClimbingR.
-% Al encontrar la solución con hillClimbingR, regresa el dicho camino al
-% revés, para así comenzar con el nodo inicial y terminar con el nodo
+% Manda llamar al mÃ©todo hillClimbingR.
+% Al encontrar la soluciÃ³n con hillClimbingR, regresa el dicho camino al
+% revÃ©s, para asÃ­ comenzar con el nodo inicial y terminar con el nodo
 % meta.
-hillClimbing(Inicio,Fin,Solución):-
+hillClimbing(Inicio,Fin,SoluciÃ³n):-
     hillClimbingR([Inicio],Fin,Camino),
-    reverse(Camino,Solución),!.
+    reverse(Camino,SoluciÃ³n),!.
 
-% Método utilizado en la búsqueda Hill-Climbing.
+% MÃ©todo utilizado en la bÃºsqueda Hill-Climbing.
 % Agrega a la lista el sucesor que cumpla con 2 condiciones:
 % 1. No pertenecer ya al recorrido.
-% 2. Que el valor del nodo encontrado sea mayor al nodo actual, así se
-% garantiza que el estado encontrado presente mejoría en comparación con
+% 2. Que el valor del nodo encontrado sea mayor al nodo actual, asÃ­ se
+% garantiza que el estado encontrado presente mejorÃ­a en comparaciÃ³n con
 % el estado actual.
 sucesor([],[]):-!.
 sucesor([Actual|Recorrido],Camino):-
-    (conexión(Actual,Sig),\+member(Sig,Recorrido)),
+    (conexiÃ³n(Actual,Sig),\+member(Sig,Recorrido)),
     valor(Actual,Valor1),valor(Sig,Valor2),
     Valor2>Valor1,
     append([Sig],[Actual|Recorrido],Camino).
 
-% Método que encuentra la solución utilizando la búsqueda Hill Climbing.
+% MÃ©todo que encuentra la soluciÃ³n utilizando la bÃºsqueda Hill Climbing.
 hillClimbingR([],_,[]):-!.
 hillClimbingR([Fin|Camino],Fin,[Fin|Camino]):-!.
 hillClimbingR(Recorrido,Meta,Final):-
@@ -184,35 +184,35 @@ hillClimbingR(Recorrido,Meta,Final):-
 % Steepest Ascent Hill Climbing.
 % Recibe el nodo de inicio, el nodo al que se quiere llegar y
 % regresa el camino obtenido.
-% Manda llamar al método sa_HillClimbing.
-% Al encontrar la solución con sa_HillClimbing, regresa el dicho camino al
-% revés, para así comenzar con el nodo inicial y terminar con el nodo
+% Manda llamar al mÃ©todo sa_HillClimbing.
+% Al encontrar la soluciÃ³n con sa_HillClimbing, regresa el dicho camino al
+% revÃ©s, para asÃ­ comenzar con el nodo inicial y terminar con el nodo
 % meta.
-sa_HillClimbing(Inicio,Fin,Solución):-
+sa_HillClimbing(Inicio,Fin,SoluciÃ³n):-
     saHillClimbingR([Inicio],Fin,Camino),
-    reverse(Camino,Solución),!.
+    reverse(Camino,SoluciÃ³n),!.
 
-% Método utilizado en la búsqueda Steepest Ascent Hill-Climbing.
+% MÃ©todo utilizado en la bÃºsqueda Steepest Ascent Hill-Climbing.
 % Agrega a la lista los sucesores, con sus valores,  que cumpla con 2
 % condiciones:
 % 1. No pertenecer ya al recorrido.
-% 2. Que el valor del nodo encontrado sea mayor al nodo actual, así
-% se garantiza que el estado encontrado presente mejoría en comparación
+% 2. Que el valor del nodo encontrado sea mayor al nodo actual, asÃ­
+% se garantiza que el estado encontrado presente mejorÃ­a en comparaciÃ³n
 % con el estado actual.
-% Utiliza el método predefinido findall/3.
+% Utiliza el mÃ©todo predefinido findall/3.
 % findall/3 se compone de tres argumentos:
-% (1) Cómo va a agregar los elementos a la lista.
-% (2) Qué condiciones se tienen que cumplir para agregarlos
+% (1) CÃ³mo va a agregar los elementos a la lista.
+% (2) QuÃ© condiciones se tienen que cumplir para agregarlos
 % (3) La lista resultante.
 siguientePos([],[]):-!.
 siguientePos([Actual|Recorrido],Res):-
-    findall([NodoSig|Valor],(conexión(Actual,NodoSig),\+member(NodoSig,Recorrido),valor(NodoSig,Valor)),Estados),
+    findall([NodoSig|Valor],(conexiÃ³n(Actual,NodoSig),\+member(NodoSig,Recorrido),valor(NodoSig,Valor)),Estados),
     sort(2,@>=,Estados,[[NodoSig|Valor2]|_]),
     valor(Actual,Valor1),
     Valor2>=Valor1,
     append([NodoSig],[Actual|Recorrido],Res),!.
 
-% Método que encuentra la solución utilizando la búsqueda Steepest
+% MÃ©todo que encuentra la soluciÃ³n utilizando la bÃºsqueda Steepest
 % Ascent Hill Climbing.
 saHillClimbingR([],_,[]):-!.
 saHillClimbingR([Fin|Camino],Fin,[Fin|Camino]):-!.
@@ -225,55 +225,55 @@ saHillClimbingR(Recorrido,Meta,Final):-
 % Best-First search.
 % Recibe el nodo de inicio, el nodo al que se quiere llegar y
 % regresa el camino obtenido.
-% Manda llamar al método bestFirstR.
-% Al encontrar la solución con bestFirstR, regresa el dicho camino al
-% revés, para así comenzar con el nodo inicial y terminar con el nodo
+% Manda llamar al mÃ©todo bestFirstR.
+% Al encontrar la soluciÃ³n con bestFirstR, regresa el dicho camino al
+% revÃ©s, para asÃ­ comenzar con el nodo inicial y terminar con el nodo
 % meta.
-bestFirst(Inicio,Fin,Solución):-
+bestFirst(Inicio,Fin,SoluciÃ³n):-
     bestFirstR([[Inicio]|[]],Fin,Camino),
-    reverse(Camino,Solución),!.
+    reverse(Camino,SoluciÃ³n),!.
 
-% Método que encuentra la solución utilizando best-first search.
-% Utiliza el método predefinido findall/3.
+% MÃ©todo que encuentra la soluciÃ³n utilizando best-first search.
+% Utiliza el mÃ©todo predefinido findall/3.
 % findall/3 se compone de tres argumentos:
-% (1) Cómo va a agregar los elementos a la lista.
-% (2) Qué condiciones se tienen que cumplir para agregarlos
+% (1) CÃ³mo va a agregar los elementos a la lista.
+% (2) QuÃ© condiciones se tienen que cumplir para agregarlos
 % (3) La lista resultante.
 bestFirstR([],_,[]):-!.
 bestFirstR([[Meta|Recorrido]|_],Meta,[Meta|Recorrido]):-!.
 bestFirstR([[Actual|Recorrido]|OtrosCaminos],Meta,RecorridoFinal) :-
     findall([Siguiente,Actual|Recorrido],(costo(Actual,Siguiente,_),\+member(Siguiente,Recorrido)),Nuevos),
     append(OtrosCaminos,Nuevos,Todos),
-    sortListas(Todos,Óptimo),
-    bestFirstR(Óptimo,Meta,RecorridoFinal).
+    sortListas(Todos,Ã“ptimo),
+    bestFirstR(Ã“ptimo,Meta,RecorridoFinal).
 
 % -----------------------------------------------------------------------%
 
 % Beam search.
-% Recibe el nodo de inicio, el nodo al que se quiere llegar y el tamaño
+% Recibe el nodo de inicio, el nodo al que se quiere llegar y el tamaÃ±o
 % deseado de opciones abiertas y regresa el camino obtenido.
-% Manda llamar al método beamR.
-% Al encontrar la solución con beamR, regresa el dicho camino al
-% revés, para así comenzar con el nodo inicial y terminar con el nodo
+% Manda llamar al mÃ©todo beamR.
+% Al encontrar la soluciÃ³n con beamR, regresa el dicho camino al
+% revÃ©s, para asÃ­ comenzar con el nodo inicial y terminar con el nodo
 % meta.
-beam(Inicio,Fin,TamañoB,Solución):-
-    beamR([[Inicio]|[]],Fin,TamañoB,Camino),
-    reverse(Camino,Solución),!.
+beam(Inicio,Fin,TamaÃ±oB,SoluciÃ³n):-
+    beamR([[Inicio]|[]],Fin,TamaÃ±oB,Camino),
+    reverse(Camino,SoluciÃ³n),!.
 
-% Método utilizado en la beam search.
+% MÃ©todo utilizado en la beam search.
 % Expande todos los recorridos guardados en la lista.
-% Utiliza el método predefinido findall/3.
+% Utiliza el mÃ©todo predefinido findall/3.
 % findall/3 se compone de tres argumentos:
-% (1) Cómo va a agregar los elementos a la lista.
-% (2) Qué condiciones se tienen que cumplir para agregarlos
+% (1) CÃ³mo va a agregar los elementos a la lista.
+% (2) QuÃ© condiciones se tienen que cumplir para agregarlos
 % (3) La lista resultante.
 siguientes([],[]):-!.
 siguientes([[Actual|Recorrido]|OtrosCaminos],TodosNuevos):-
     siguientes(OtrosCaminos,OtrosNuevos),
-    findall([Siguiente,Actual|Recorrido],(conexión(Actual,Siguiente),\+member(Siguiente,Recorrido)),UnosNuevos),
+    findall([Siguiente,Actual|Recorrido],(conexiÃ³n(Actual,Siguiente),\+member(Siguiente,Recorrido)),UnosNuevos),
     append(UnosNuevos,OtrosNuevos,TodosNuevos).
 
-% Obtiene, para cada recorrido, el costo de pasar al último nodo
+% Obtiene, para cada recorrido, el costo de pasar al Ãºltimo nodo
 % agregado.
 fCosto([A,B|Resto],[Costo,A,B|Resto]) :-
     costo(B,A,Costo),!.
@@ -282,14 +282,14 @@ fCosto([[A,B|Resto]|C],[[Costo,A,B|Resto]|Cola]) :-
     costo(B,A,Costo),!.
 fCosto([],[]):-!.
 
-% Conserva únicamente los recorridos que ha hecho la búsqueda.
-sóloCamino([[_|Camino]|Cola],[Camino|ColaRes]):-
-    sóloCamino(Cola,ColaRes).
-sóloCamino([],[]):-!.
+% Conserva Ãºnicamente los recorridos que ha hecho la bÃºsqueda.
+sÃ³loCamino([[_|Camino]|Cola],[Camino|ColaRes]):-
+    sÃ³loCamino(Cola,ColaRes).
+sÃ³loCamino([],[]):-!.
 
 % Acomoda los recorridos en orden ascendente, de acuerdo al costo de
 % cada uno.
-% Utiliza el método predefinido sort/4.
+% Utiliza el mÃ©todo predefinido sort/4.
 % sort/4 acomoda las listas de una lista en el orden deseado.
 % 1) Lugar de cada lista en el que se debe guiar para realizar el sort.
 % 2) Orden en que se desea acomodar: @<= significa "en orden ascendente
@@ -298,10 +298,10 @@ sóloCamino([],[]):-!.
 sortListas(Lista,Sorted):-
     fCosto(Lista,Costos), % Agrega el costo al inicio de cada recorrido.
     sort(1,@=<,Costos,Ordenada), % Acomoda las listas de menor a mayor.
-    sóloCamino(Ordenada,Sorted). % Elimina el costo de cada recorrido.
+    sÃ³loCamino(Ordenada,Sorted). % Elimina el costo de cada recorrido.
 
-% Método utilizado en la beam search.
-% Poda los recorrido menos eficientes, y se queda con los B más
+% MÃ©todo utilizado en la beam search.
+% Poda los recorrido menos eficientes, y se queda con los B mÃ¡s
 % eficientes.
 poda(_,_,[]):-!.
 poda(Beam,[Camino|Otros],[Camino|NoPodados]) :-
@@ -309,22 +309,22 @@ poda(Beam,[Camino|Otros],[Camino|NoPodados]) :-
     B is Beam-1,
     poda(B,Otros,NoPodados).
 
-% Método utilizado en la beam search.
+% MÃ©todo utilizado en la beam search.
 % Verifica si alguno de los recorridos resulntantes llega al nodo final.
-% En caso de que sí, se asegura de que dicho recorrido esté al final de
-% la lista, para después, en el método beam, voltear la lista y que
+% En caso de que sÃ­, se asegura de que dicho recorrido estÃ© al final de
+% la lista, para despuÃ©s, en el mÃ©todo beam, voltear la lista y que
 % quede al principio.
 verifica([],_,[]):-!.
 verifica([[X|Y]|_],X,[[X|Y]]):-!.
 verifica([A|B],X,[A|C]):-
     verifica(B,X,C),!.
 
-% Método que encuentra la solución utilizando la búsqueda Beam.
+% MÃ©todo que encuentra la soluciÃ³n utilizando la bÃºsqueda Beam.
 % Encuentra los sucesores de cada recorrido.
 % Acomoda los recorrido dependiendo del costo.
 % Poda.
-% Verifica si alguno de los caminos podados es la solución.
-% Por si sí lo es, voltea la lista para que el camino solución quede al
+% Verifica si alguno de los caminos podados es la soluciÃ³n.
+% Por si sÃ­ lo es, voltea la lista para que el camino soluciÃ³n quede al
 % principio.
 beamR([],_,_,[]):-!.
 beamR([[Meta|Recorrido]|_],Meta,_,[Meta|Recorrido]):-!.
@@ -341,26 +341,26 @@ beamR(Caminos,Meta,Beam,RecorridoFinal) :-
 % A* search.
 % Recibe el nodo de inicio, el nodo al que se quiere llegar y
 % regresa el camino obtenido.
-% Obtiene las coordenadas del nodo inicial y manda llamar al método
+% Obtiene las coordenadas del nodo inicial y manda llamar al mÃ©todo
 % aEstrellaR.
-% Al encontrar la solución con aEstrellaR, regresa el dicho camino al
-% revés, para así comenzar con el nodo inicial y terminar con el nodo
+% Al encontrar la soluciÃ³n con aEstrellaR, regresa el dicho camino al
+% revÃ©s, para asÃ­ comenzar con el nodo inicial y terminar con el nodo
 % meta.
-aEstrella(Inicio,Fin,Solución):-
+aEstrella(Inicio,Fin,SoluciÃ³n):-
     coordenadas(Inicio,Ax,Ay),
     aEstrellaR(Ax,Ay,[[Inicio]|[]],Fin,Camino),
-    reverse(Camino,Solución),!.
+    reverse(Camino,SoluciÃ³n),!.
 
-% Función H().
+% FunciÃ³n H().
 % Utilizada en el A*.
-% Obtiene la distancia en línea recta de pasar del nodo inicial al
-% último nodo agregado al recorrido.
+% Obtiene la distancia en lÃ­nea recta de pasar del nodo inicial al
+% Ãºltimo nodo agregado al recorrido.
 h(CXa,CYa,[B|_],Km):-
-    coordenadas(B,CXb,CYb), % Obtiene las coordenadas del último nodo visitado.
+    coordenadas(B,CXb,CYb), % Obtiene las coordenadas del Ãºltimo nodo visitado.
     Km is (90*(sqrt(((CXb-CXa)**2)+((CYb-CYa)**2)))),!. % Obtiene la distancia.
 h(_,_,[],[]):-!.
 
-% Función G().
+% FunciÃ³n G().
 % Utilizada en el A*.
 % Obtiene el costo total del recorrido recorrido sumando los costos de
 % pasar a cada nodo visitando.
@@ -372,9 +372,9 @@ g([A,B],Costo):-
     costo(B,A,Costo),!.
 g([],[]):-!.
 
-% Función F().
+% FunciÃ³n F().
 % Utilizada en el A*.
-% Obtiene, para cada recorrido, su función F()=G()+H().
+% Obtiene, para cada recorrido, su funciÃ³n F()=G()+H().
 f(CXa,CYa,[Camino],[[F|Camino]]):-
     g(Camino,G),
     h(CXa,CYa,Camino,H),
@@ -386,33 +386,33 @@ f(CXa,CYa,[Camino|Resto],[[F|Camino]|Cola]):-
     F is G+H,!.
 f(_,_,[],[]):-!.
 
-% Método utilizado en A*.
-% Acomoda los recorridos en orden ascendente, de acuerdo la función F()
+% MÃ©todo utilizado en A*.
+% Acomoda los recorridos en orden ascendente, de acuerdo la funciÃ³n F()
 % de cada uno.
-% Utiliza el método predefinido sort/4.
+% Utiliza el mÃ©todo predefinido sort/4.
 % sort/4 acomoda las listas de una lista en el orden deseado.
 % 1) Lugar de cada lista en el que se debe guiar para realizar el sort.
 % 2) Orden en que se desea acomodar: @<= significa "en orden ascendente
 % y mantener repetidos".
 % 3) Regresa la lista de listas ordenada.
-caminoÓptimo(CXa,CYa,Lista,Óptimo):-
+caminoÃ“ptimo(CXa,CYa,Lista,Ã“ptimo):-
     f(CXa,CYa,Lista,F), % Agrega el valor de F() al inicio de cada recorrido.
     sort(1,@=<,F,Ordenada), % Acomoda las listas de menor a mayor.
-    sóloCamino(Ordenada,Óptimo). % Elimina el costo de cada recorrido.
+    sÃ³loCamino(Ordenada,Ã“ptimo). % Elimina el costo de cada recorrido.
 
-% Método que encuentra la solución utilizando A*.
-% Utiliza el método predefinido findall/3.
+% MÃ©todo que encuentra la soluciÃ³n utilizando A*.
+% Utiliza el mÃ©todo predefinido findall/3.
 % findall/3 se compone de tres argumentos:
-% (1) Cómo va a agregar los elementos a la lista.
-% (2) Qué condiciones se tienen que cumplir para agregarlos
+% (1) CÃ³mo va a agregar los elementos a la lista.
+% (2) QuÃ© condiciones se tienen que cumplir para agregarlos
 % (3) La lista resultante.
 aEstrellaR(_,_,[],_,[]):-!.
 aEstrellaR(_,_,[[Meta|Recorrido]|_],Meta,[Meta|Recorrido]):-!.
 aEstrellaR(CXa,CYa,[[Actual|Recorrido]|OtrosCaminos],Meta,RecorridoFinal) :-
     findall([Siguiente,Actual|Recorrido],(costo(Actual,Siguiente,_),\+member(Siguiente,Recorrido)),Nuevos),
     append(OtrosCaminos,Nuevos,Todos),
-    caminoÓptimo(CXa,CYa,Todos,Óptimo),
-    aEstrellaR(CXa,CYa,Óptimo,Meta,RecorridoFinal).
+    caminoÃ“ptimo(CXa,CYa,Todos,Ã“ptimo),
+    aEstrellaR(CXa,CYa,Ã“ptimo,Meta,RecorridoFinal).
 
 % -----------------------------------------------------------------------%
 
